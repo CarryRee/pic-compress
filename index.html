@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="图压缩是一款浏览器内完成处理的图片压缩工具，支持 JPEG、PNG、WebP，快速压缩并下载清晰小图。"
+    >
+    <title>图压缩 - 快速压缩图片，保持清晰</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="主导航" data-i18n-attr="aria-label:navLabel">
+        <a class="brand" href="#top" aria-label="图压缩首页" data-i18n-attr="aria-label:brandHome">
+          <span class="brand-mark" aria-hidden="true" data-i18n="brandMark">压</span>
+          <span data-i18n="brandName">图压缩</span>
+        </a>
+        <div class="nav-links">
+          <a href="#features" data-i18n="navFeatures">功能</a>
+          <a href="#advantages" data-i18n="navAdvantages">优势</a>
+          <div class="language-picker" id="languagePicker">
+            <button class="language-trigger" id="languageTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="语言" data-i18n-attr="aria-label:languageLabel">
+              <span id="languageCurrent">中文</span>
+            </button>
+            <span class="language-arrow" aria-hidden="true"></span>
+            <div class="language-menu" id="languageMenu" role="listbox" aria-label="语言" data-i18n-attr="aria-label:languageLabel" hidden>
+              <button class="language-option" type="button" role="option" data-language="zh" aria-selected="true">
+                <span>中文</span>
+                <span class="language-option-code">ZH</span>
+              </button>
+              <button class="language-option" type="button" role="option" data-language="en" aria-selected="false">
+                <span>English</span>
+                <span class="language-option-code">EN</span>
+              </button>
+              <button class="language-option" type="button" role="option" data-language="ja" aria-selected="false">
+                <span>日本語</span>
+                <span class="language-option-code">JA</span>
+              </button>
+            </div>
+          </div>
+          <a class="nav-cta" href="#compressor" data-i18n="navUseNow">立即使用</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">本地处理 · 不上传原图</p>
+          <h1 data-i18n="heroTitle">把大图压小，清晰度留住。</h1>
+          <p class="hero-text" data-i18n="heroText">
+            拖入图片，调一下质量和尺寸，几秒内下载更轻的 JPEG、PNG 或 WebP。适合商品图、文章配图和日常分享。
+          </p>
+          <div class="hero-actions" aria-label="主要操作" data-i18n-attr="aria-label:primaryActions">
+            <a class="primary-button" href="#compressor" data-i18n="startCompress">开始压缩</a>
+            <a class="secondary-button" href="#features" data-i18n="viewFeatures">查看功能</a>
+          </div>
+          <dl class="trust-row" aria-label="产品亮点" data-i18n-attr="aria-label:productHighlights">
+            <div>
+              <dt>0</dt>
+              <dd data-i18n="trustUpload">服务器上传</dd>
+            </div>
+            <div>
+              <dt>3</dt>
+              <dd data-i18n="trustFormats">常用格式</dd>
+            </div>
+            <div>
+              <dt>80%</dt>
+              <dd data-i18n="trustQuality">默认质量</dd>
+            </div>
+          </dl>
+        </div>
+
+        <section class="compressor-card" id="compressor" aria-labelledby="compressor-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker" data-i18n="panelKicker">在线压缩</p>
+              <h2 id="compressor-title" data-i18n="panelTitle">选择一张图片</h2>
+            </div>
+            <span class="local-badge" data-i18n="localBadge">浏览器内完成</span>
+          </div>
+
+          <label class="drop-zone" id="dropZone" for="fileInput">
+            <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp">
+            <span class="upload-icon" aria-hidden="true">↓</span>
+            <span class="drop-title" data-i18n="dropTitle">拖拽图片到这里</span>
+            <span class="drop-subtitle" data-i18n="dropSubtitle">或点击选择 JPEG、PNG、WebP</span>
+          </label>
+
+          <div class="message" id="message" role="status" aria-live="polite">
+            选择图片后会显示压缩结果。
+          </div>
+
+          <div class="controls">
+            <label for="qualityRange">
+              <span data-i18n="qualityLabel">压缩质量</span>
+              <output id="qualityValue" for="qualityRange">80%</output>
+            </label>
+            <input id="qualityRange" type="range" min="30" max="95" value="80" step="5">
+          </div>
+
+          <div class="resize-controls" aria-label="图片尺寸" data-i18n-attr="aria-label:imageDimensions">
+            <div class="resize-heading">
+              <div>
+                <span class="control-title" data-i18n="dimensionTitle">图片尺寸</span>
+                <span class="dimension-note" id="originalDimensions">上传后显示原图尺寸</span>
+              </div>
+              <button class="reset-size-button" id="resetSizeButton" type="button" disabled data-i18n="resetSize">恢复原尺寸</button>
+            </div>
+            <div class="resize-mode" role="group" aria-label="尺寸模式" data-i18n-attr="aria-label:dimensionMode">
+              <button class="mode-button is-active" id="ratioModeButton" type="button" aria-pressed="true" data-i18n="ratioMode">等比例</button>
+              <button class="mode-button" id="customModeButton" type="button" aria-pressed="false" data-i18n="customMode">自定义</button>
+            </div>
+            <p class="dimension-mode-hint" id="dimensionModeHint">修改宽或高时，另一边会自动按比例调整。</p>
+            <div class="dimension-grid">
+              <label for="widthInput">
+                <span data-i18n="widthLabel">宽度</span>
+                <input id="widthInput" type="number" min="1" inputmode="numeric" placeholder="宽度" disabled data-i18n-attr="placeholder:widthLabel">
+              </label>
+              <label for="heightInput">
+                <span data-i18n="heightLabel">高度</span>
+                <input id="heightInput" type="number" min="1" inputmode="numeric" placeholder="高度" disabled data-i18n-attr="placeholder:heightLabel">
+              </label>
+            </div>
+          </div>
+
+          <div class="comparison" aria-label="压缩前后体积对比" data-i18n-attr="aria-label:sizeComparison">
+            <div class="compare-line">
+              <span data-i18n="beforeCompression">压缩前</span>
+              <strong id="originalSize">--</strong>
+            </div>
+            <div class="size-track" aria-hidden="true">
+              <span class="before-bar"></span>
+              <span class="after-bar" id="afterBar"></span>
+            </div>
+            <div class="compare-line">
+              <span data-i18n="afterCompression">压缩后</span>
+              <strong id="compressedSize">--</strong>
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div>
+              <span class="metric-label" data-i18n="savingMetric">节省体积</span>
+              <strong id="savingValue">--</strong>
+            </div>
+            <div>
+              <span class="metric-label" data-i18n="formatMetric">输出格式</span>
+              <strong id="formatValue">--</strong>
+            </div>
+            <div>
+              <span class="metric-label" data-i18n="dimensionsMetric">输出尺寸</span>
+              <strong id="dimensionsValue">--</strong>
+            </div>
+          </div>
+
+          <figure class="preview-frame" id="previewFrame" hidden>
+            <img id="previewImage" alt="压缩后的图片预览" data-i18n-attr="alt:previewAlt">
+          </figure>
+
+          <a class="download-button" id="downloadButton" href="#" download hidden data-i18n="downloadImage">下载压缩图</a>
+        </section>
+      </section>
+
+      <section class="feature-band" id="features">
+        <div class="section-shell">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="featuresEyebrow">功能</p>
+            <h2 data-i18n="featuresTitle">压缩过程少一点步骤，结果多一点确定。</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true">JPG</span>
+              <h3 data-i18n="featureFormatTitle">常用格式支持</h3>
+              <p data-i18n="featureFormatText">支持 JPEG、PNG、WebP 输入，压缩后生成适合浏览器使用的小体积图片。</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true">80</span>
+              <h3 data-i18n="featureQualityTitle">质量可调</h3>
+              <p data-i18n="featureQualityText">用滑杆控制清晰度和体积，在上传前就找到合适平衡点。</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true">px</span>
+              <h3 data-i18n="featureDimensionTitle">尺寸可改</h3>
+              <p data-i18n="featureDimensionText">支持等比例缩放和自定义宽高，按用途输出合适尺寸。</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true">↓</span>
+              <h3 data-i18n="featureDownloadTitle">一键下载</h3>
+              <p data-i18n="featureDownloadText">压缩完成后直接下载，文件名自动追加 compressed，方便区分。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell advantages" id="advantages">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="advantagesEyebrow">优势</p>
+          <h2 data-i18n="advantagesTitle">适合每天都要处理图片的人。</h2>
+        </div>
+        <div class="advantage-list">
+          <article>
+            <h3 data-i18n="advantageLocalTitle">图片留在本地</h3>
+            <p data-i18n="advantageLocalText">压缩在浏览器中完成，不需要把原图传到服务器。</p>
+          </article>
+          <article>
+            <h3 data-i18n="advantageFlowTitle">操作不打断</h3>
+            <p data-i18n="advantageFlowText">上传、调质量、查看结果、下载都在同一个面板完成。</p>
+          </article>
+          <article>
+            <h3 data-i18n="advantageScenarioTitle">面向真实场景</h3>
+            <p data-i18n="advantageScenarioText">商品图、公众号配图、简历附件和聊天分享，都能快速减小体积。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq-band">
+        <div class="section-shell faq-grid">
+          <div>
+            <p class="eyebrow" data-i18n="faqEyebrow">FAQ</p>
+            <h2 data-i18n="faqTitle">常见问题</h2>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary data-i18n="faqFormatsQuestion">支持哪些图片格式？</summary>
+              <p data-i18n="faqFormatsAnswer">首版支持 JPEG、PNG、WebP。不同浏览器的编码能力可能略有差异。</p>
+            </details>
+            <details>
+              <summary data-i18n="faqUploadQuestion">图片会上传到服务器吗？</summary>
+              <p data-i18n="faqUploadAnswer">不会。当前版本使用浏览器 Canvas 在本地处理图片。</p>
+            </details>
+            <details>
+              <summary data-i18n="faqBiggerQuestion">压缩后为什么可能比原图更大？</summary>
+              <p data-i18n="faqBiggerAnswer">如果原图本身已经高度压缩，或格式转换不适合该图片，输出体积可能不会继续下降。</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell footer-inner">
+        <span data-i18n="brandName">图压缩</span>
+        <span data-i18n="footerText">轻量、清晰、本地完成。</span>
+      </div>
+    </footer>
+
+    <script src="locales.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
